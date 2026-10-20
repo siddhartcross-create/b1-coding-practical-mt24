@@ -75,6 +75,7 @@ class Mission:
 
     @classmethod
     def from_csv(cls, file_name: str):
+        # follow the example above to load the file data
         (reference, cave_height, cave_depth) = np.loadtxt(file_name, delimiter=',', skiprows=1, unpack=True)
         return cls(reference, cave_height, cave_depth)
 
@@ -98,6 +99,7 @@ class ClosedLoop:
             positions[t] = self.plant.get_position()
             observation_t = self.plant.get_depth()
             # Call your controller here
+            # match the name of the function and input arguments in the controller
             actions[t] = self.controller.act(mission.reference[t], observation_t)
             self.plant.transition(actions[t], disturbances[t])
 
