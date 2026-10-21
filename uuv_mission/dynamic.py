@@ -94,12 +94,13 @@ class ClosedLoop:
         positions = np.zeros((T, 2))
         actions = np.zeros(T)
         self.plant.reset_state()
+        self.controller.reset()
 
         for t in range(T):
             positions[t] = self.plant.get_position()
             observation_t = self.plant.get_depth()
             # Call your controller here
-            # match the name of the function and input arguments in the controller
+            # match the name and input arguments in function in class PDcontroller (from control.py)
             actions[t] = self.controller.act(mission.reference[t], observation_t)
             self.plant.transition(actions[t], disturbances[t])
 
